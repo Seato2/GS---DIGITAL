@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sea Health</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #009688;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #0075ff;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #46a920;
+        }
+    </style>
+</head>
+<body>
+<h1>Pollution Records - Sea Health</h1>
+<div>
+    <h2>Add New Record</h2>
+    <form th:action="@{/pollution}" th:object="${pollutionRecord}" method="post">
+        <p>Location: <input type="text" th:field="*{location}" /></p>
+        <p>Pollution Level: <input type="number" th:field="*{pollutionLevel}" /></p>
+        <p>Date Recorded: <input type="date" th:field="*{dateRecorded}" /></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+</div>
+<div>
+    <h2>List of Records</h2>
+    <table>
+        <tr>
+            <th>Location</th>
+            <th>Pollution Level</th>
+            <th>Date Recorded</th>
+        </tr>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.location}">Location</td>
+            <td th:text="${record.pollutionLevel}">Level</td>
+            <td th:text="${record.dateRecorded}">Date</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
